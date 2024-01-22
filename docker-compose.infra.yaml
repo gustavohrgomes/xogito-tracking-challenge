@@ -2,12 +2,12 @@ version: "3.4"
 
 services:
   sql-server:
-    image: mcr.microsoft.com/mssql/rhel/server:2019-CU1-rhel-8
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sql-server
     ports:
       - "1433:1433"
     environment:
-      SA_PASSWORD: "user_password"
+      MSSQL_SA_PASSWORD: "@User_password#123!"
       ACCEPT_EULA: "Y" 
     networks:
       - retail

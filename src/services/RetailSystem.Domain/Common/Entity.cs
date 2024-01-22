@@ -8,6 +8,8 @@ public abstract class Entity : IEquatable<Entity>
         Id = id;
     }
 
+    protected Entity() { }
+
     public Guid Id { get; protected set; }
 
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
