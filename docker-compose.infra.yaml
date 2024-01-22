@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/rhel/server:2019-CU1-rhel-8
+    container_name: sql-server
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "user_password"
+      ACCEPT_EULA: "Y" 
+    networks:
+      - retail
+    
+  seq:
+    image: datalust/seq
+    container_name: retail-seq
+    ports:
+      - "5341:80"
+    environment:
+      ACCEPT_EULA: "Y"
+    networks:
+      - retail
+
+networks:
+  retail:
+    driver: bridge
+    external: false
