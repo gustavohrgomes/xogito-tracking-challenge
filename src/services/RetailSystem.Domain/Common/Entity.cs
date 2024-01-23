@@ -10,9 +10,11 @@ public abstract class Entity : IEquatable<Entity>
 
     protected Entity() { }
 
-    public Guid Id { get; protected set; }
+    public Guid Id { get; init; }
 
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void RaiseDomainEvent(DomainEvent @domainEvent) => _domainEvents.Add(@domainEvent);
 
     public void ClearDomainEvents() => _domainEvents.Clear();
 
