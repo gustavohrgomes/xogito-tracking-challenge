@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RetailSystem.Application.Exeptions;
 using System.Net.Mime;
 
 namespace RetailSystem.Infrastructure.ExpectionHandler;
+
 public class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;
@@ -21,14 +23,35 @@ public class GlobalExceptionHandler : IExceptionHandler
     {
         _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
 
+        httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+
+        if (exception is ValidationFailedException validationFailedException)
+        {
+            ProblemDetails validationProblemDetails = new()
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Bad Request",
+                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
+                Extensions = new Dictionary<string, object?>()
+                {
+                    {"errors", new[] { validationFailedException.Errors } }
+                }
+            };
+
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await httpContext.Response.WriteAsJsonAsync(validationProblemDetails, cancellationToken);
+            return true;
+        }
+
         ProblemDetails problemDetails = new()
         {
             Status = StatusCodes.Status500InternalServerError,
             Title = "Server Error",
-            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"
+            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
+            Detail = exception.Message
         };
 
-        httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+        
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);

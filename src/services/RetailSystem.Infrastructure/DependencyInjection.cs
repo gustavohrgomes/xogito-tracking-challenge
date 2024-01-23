@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using RetailSystem.Domain.Products;
+using RetailSystem.Domain.Repositories;
 using RetailSystem.Infrastructure.ExpectionHandler;
 using RetailSystem.Infrastructure.Persistence;
 using RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
-using System.Reflection;
+using RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
 
 namespace RetailSystem.Infrastructure;
 public static class DependencyInjection
@@ -17,6 +19,8 @@ public static class DependencyInjection
         services
             .AddExceptionHandler<GlobalExceptionHandler>()
             .AddProblemDetails();
+
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }
@@ -55,7 +59,7 @@ public static class DependencyInjection
             {
                 options.EnableRetryOnFailure(maxRetryCount);
             });
-        }, serviceLifetime ?? ServiceLifetime.Scoped);
+        });
 
         return services;
     }

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RetailSystem.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RetailSystem.Domain.Products;
 
 namespace RetailSystem.Infrastructure.Persistence.Mappings;
 internal class ProductMapping : IEntityTypeConfiguration<Product>
@@ -15,6 +10,9 @@ internal class ProductMapping : IEntityTypeConfiguration<Product>
         builder.ToTable("Products");
 
         builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+           .ValueGeneratedNever();
 
         builder
             .Property(x => x.Name)
@@ -29,7 +27,13 @@ internal class ProductMapping : IEntityTypeConfiguration<Product>
                 v => v.ToString(), 
                 v => (ProductState)Enum.Parse(typeof(ProductState), v));
 
+        builder.HasMany<ProductMovement>("_productMovements")
+            .WithOne()
+            .HasForeignKey("ProductId");
+
         builder.HasIndex(x => x.WarehouseId);
         builder.HasIndex(x => x.StoreId);
+
+        builder.Ignore(x => x.ProductMovements);
     }
 }

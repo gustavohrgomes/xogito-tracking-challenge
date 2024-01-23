@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetailSystem.Domain;
 using RetailSystem.Domain.Common;
+using RetailSystem.Domain.Products;
 
 namespace RetailSystem.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext
+public sealed class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+        ChangeTracker.LazyLoadingEnabled = false;
+        ChangeTracker.AutoDetectChangesEnabled = true;
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
     }
 
-    public DbSet<Warehouse> Warehouses { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<ProductMovement> ProductsMovements { get; set; }
-    public DbSet<Store> Stores { get; set; }
-
+   
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<string>().HaveMaxLength(255);

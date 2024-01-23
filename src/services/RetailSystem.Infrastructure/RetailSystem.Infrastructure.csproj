@@ -24,4 +24,8 @@
     <ProjectReference Include="..\RetailSystem.Application\RetailSystem.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
 </Project>

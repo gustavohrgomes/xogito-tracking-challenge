@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RetailSystem.Domain;
+using RetailSystem.Domain.Products;
 
 namespace RetailSystem.Infrastructure.Persistence.Mappings;
 internal class ProductMovementMapping : IEntityTypeConfiguration<ProductMovement>
@@ -8,24 +8,28 @@ internal class ProductMovementMapping : IEntityTypeConfiguration<ProductMovement
     public void Configure(EntityTypeBuilder<ProductMovement> builder)
     {
         builder.ToTable("ProductsMovements");
-
+        
         builder.HasKey(x => x.Id);
 
-        builder
-            .Property(x => x.Origin)
-            .IsRequired();
+        builder.Property(x => x.Id)
+            .ValueGeneratedNever();
 
         builder
-            .Property(x => x.Destination)
-            .IsRequired();
+            .Property(x => x.SourceId);
 
         builder
-            .Property(x => x.DispatchUtcDate)
-            .ValueGeneratedOnAdd();
+            .Property(x => x.Source);
 
         builder
-            .Property(x => x.LastUpdatedUtcDate)
-            .ValueGeneratedOnUpdate();
+            .Property(x => x.DestinationId);
+
+        builder
+            .Property(x => x.Destination);
+
+        builder.Property(x => x.State)
+            .HasConversion(
+                v => v.ToString(),
+                v => (MovementState)Enum.Parse(typeof(MovementState), v));
 
         builder.HasIndex(x => x.DispatchUtcDate);
         builder.HasIndex(x => x.ReceivedUtcDate);
