@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using MediatR.NotificationPublishers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using RetailSystem.API.Middlewares;
@@ -9,12 +10,15 @@ using RetailSystem.Application.Behaviors;
 using RetailSystem.Infrastructure;
 using RetailSystem.Infrastructure.Persistence;
 using Serilog;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
+
+var assemblies = new Assembly[] { typeof(Program).Assembly, typeof(ApplicationAssemblyMarker).Assembly };
 
 builder.Services
     .AddEndpointsApiExplorer()
@@ -27,16 +31,16 @@ builder.Services
         builder.Configuration,
         builder.Configuration.GetConnectionString("RetailDB"),
         ServiceLifetime.Scoped)
-    .AddInfrastructureServices()
     .AddMediatR(config =>
     {
-        config.RegisterServicesFromAssemblyContaining<ApplicationAssemblyMarker>();
+        config.RegisterServicesFromAssemblies(assemblies);
         config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-        config.NotificationPublisher = new TaskWhenAllPublisher();
         config.NotificationPublisherType = typeof(TaskWhenAllPublisher);
     })
-    .AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+    .AddUnitOfWork<ApplicationDbContext>()
+    .AddInfrastructureServices()
+    .AddValidatorsFromAssemblies(assemblies)
     .AddControllers();
 
 var app = builder.Build();
@@ -50,6 +54,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseInfrastructureServices();
+
 app.UseMiddleware<RequestLogContextMiddleware>();
 app.UseSerilogRequestLogging();
 
@@ -58,3 +64,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
