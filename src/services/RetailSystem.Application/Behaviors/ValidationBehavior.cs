@@ -1,10 +1,12 @@
-﻿using FluentValidation;
+﻿using FluentResults;
+using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using RetailSystem.Application.Exeptions;
 
 namespace RetailSystem.Application.Behaviors;
 
-public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest,TResponse>
     where TRequest : IBaseRequest
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
@@ -24,9 +26,12 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
 
         if (!validationFailures.Any())
         {
-            return await next().ConfigureAwait(continueOnCapturedContext: false);
+            var response = await next().ConfigureAwait(continueOnCapturedContext: false);
+            return response;
         }
 
-        throw new ValidationException(validationFailures);
+        var errors = validationFailures.Select(failure => new ValidationFailedException.ValidationError(failure.PropertyName, failure.ErrorMessage));
+
+        throw new ValidationFailedException(errors);
     }
 }

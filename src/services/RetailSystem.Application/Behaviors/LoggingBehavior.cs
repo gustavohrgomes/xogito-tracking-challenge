@@ -1,10 +1,13 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using Microsoft.Extensions.Logging;
+using RetailSystem.Application.Extensions;
 
 namespace RetailSystem.Application.Behaviors;
 
 public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
+    where TResponse : Result
 {
     private readonly ILogger _logger;
 
@@ -13,9 +16,14 @@ public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         _logger = logger;
     }
 
+    public LoggingBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
+    {
+        _logger = logger;
+    }
+
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        string behaviorName = nameof(LoggingBehavior<TRequest, TResponse>);
+        string behaviorName = typeof(LoggingBehavior<TRequest, TResponse>).ResolveTypeName();
 
         string requestType = typeof(TRequest).Name;
 
@@ -25,8 +33,13 @@ public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
 
             var response = await next().ConfigureAwait(continueOnCapturedContext: false);
 
-            _logger.LogInformation("[{Behavior}] - Request of type {RequestType} handled successfully", behaviorName, requestType);
+            if (response.IsSuccess)
+            {
+                _logger.LogInformation("[{Behavior}] - Request of type {RequestType} handled successfully", behaviorName, requestType);
+                return response;
+            }
 
+            _logger.LogInformation("[{Behavior}] - Request of type {RequestType} handled with errors {Errors}", behaviorName, requestType, response.Errors);
             return response;
         }
         catch (Exception exception)
