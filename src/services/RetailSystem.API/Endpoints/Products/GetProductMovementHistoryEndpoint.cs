@@ -41,14 +41,3 @@ public class GetProductMovementHistoryEndpoint : EndpointBaseAsync
         return Ok(result.Value);
     }
 }
-
-public record ProductResponse(Guid ProductId, string Name, string Status, int quantity, Guid WarehouseId, IReadOnlyList<ProductMovement> Movements);
-
-public record GetProductsRequest(
-    int PageSize = 10,
-    int PageIndex = 1,
-    string sortColumn = "name",
-    string sortOrder = "asc",
-    string SearchTerm = null)
-{
-}
