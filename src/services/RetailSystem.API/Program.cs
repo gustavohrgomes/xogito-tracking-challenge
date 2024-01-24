@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
-var assemblies = new Assembly[] { typeof(Program).Assembly, typeof(ApplicationAssemblyMarker).Assembly };
+var assemblies = new Assembly[] { typeof(Program).Assembly, typeof(ApplicationAssemblyMarker).Assembly, typeof(InfrastructureAssemblyMarker).Assembly };
 
 builder.Services
     .AddEndpointsApiExplorer()
