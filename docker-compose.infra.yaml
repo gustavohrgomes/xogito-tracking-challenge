@@ -4,25 +4,26 @@ services:
   sql-server:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sql-server
+    restart: "always"
     ports:
       - "1433:1433"
     environment:
       MSSQL_SA_PASSWORD: "@User_password#123!"
       ACCEPT_EULA: "Y" 
     networks:
-      - retail
+      - warehouse
     
   seq:
     image: datalust/seq
-    container_name: retail-seq
+    container_name: warehouse-seq
     ports:
       - "5341:80"
     environment:
       ACCEPT_EULA: "Y"
     networks:
-      - retail
+      - warehouse
 
 networks:
-  retail:
+  warehouse:
     driver: bridge
     external: false
