@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using RetailSystem.Domain.Products;
-using RetailSystem.Domain.Repositories;
-using RetailSystem.Infrastructure.ExpectionHandler;
 using RetailSystem.Infrastructure.Persistence;
-using RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
-using RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Domain.Repositories;
+using Warehouse.Tracking.Infrastructure.ExpectionHandler;
+using Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
+using Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
 
-namespace RetailSystem.Infrastructure;
+namespace Warehouse.Tracking.Infrastructure;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
@@ -33,7 +33,7 @@ public static class DependencyInjection
     }
 
     public static IServiceCollection AddSqlServerDbContext<TDbContext>(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration configuration,
         string? connectionString,
         ServiceLifetime? serviceLifetime) where TDbContext : DbContext

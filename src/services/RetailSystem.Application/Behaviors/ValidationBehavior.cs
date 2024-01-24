@@ -2,11 +2,11 @@
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using RetailSystem.Application.Exeptions;
+using Warehouse.Tracking.Application.Exeptions;
 
-namespace RetailSystem.Application.Behaviors;
+namespace Warehouse.Tracking.Application.Behaviors;
 
-public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest,TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IBaseRequest
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;

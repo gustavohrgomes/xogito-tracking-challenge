@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace RetailSystem.Application.Products.Register;
+namespace Warehouse.Tracking.Application.Products.Register;
 
 public record RegisterProductCommand(string Name, int Quantity, Guid WarehouseId, Guid? StoreId) : IRequest<Result<Guid>>;
 

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RetailSystem.Domain.Common;
-using RetailSystem.Domain.Repositories;
+using Warehouse.Tracking.Domain.Common;
+using Warehouse.Tracking.Domain.Repositories;
 
-namespace RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
+namespace Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
 
 public class UnitOfWork<TDbContext> : IUnitOfWork
     where TDbContext : DbContext
@@ -29,7 +29,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var domainEvents = this.ExtractDomainEvents();
+                var domainEvents = ExtractDomainEvents();
 
                 await _context.SaveChangesAsync(cancellationToken);
 

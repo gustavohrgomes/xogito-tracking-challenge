@@ -1,4 +1,4 @@
-﻿namespace RetailSystem.API.Contracts.Requests;
+﻿namespace Warehouse.Tracking.API.Contracts.Requests;
 
 public record ShipProductRequest(
     Guid ProductId,

@@ -1,4 +1,4 @@
-﻿namespace Shared;
+﻿namespace Warehouse.Tracking.Shared;
 public class PaginatedResult<T> where T : class
 {
     public int PageIndex { get; set; }

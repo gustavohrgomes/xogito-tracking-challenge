@@ -1,11 +1,11 @@
 ﻿using Ardalis.ApiEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RetailSystem.API.Contracts.Requests;
-using RetailSystem.Application.Products.Register;
 using Swashbuckle.AspNetCore.Annotations;
+using Warehouse.Tracking.API.Contracts.Requests;
+using Warehouse.Tracking.Application.Products.Register;
 
-namespace RetailSystem.API.Endpoints.Products;
+namespace Warehouse.Tracking.API.Endpoints.Products;
 
 [Route("api/products")]
 public class RegisterProductEndpoint : EndpointBaseAsync

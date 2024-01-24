@@ -1,4 +1,4 @@
-﻿namespace RetailSystem.Domain.Common;
+﻿namespace Warehouse.Tracking.Domain.Common;
 public abstract class Entity : IEquatable<Entity>
 {
     private readonly List<DomainEvent> _domainEvents = new();

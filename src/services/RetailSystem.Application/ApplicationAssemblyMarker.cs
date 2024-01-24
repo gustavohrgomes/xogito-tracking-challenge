@@ -1,3 +1,3 @@
-﻿namespace RetailSystem.Application;
+﻿namespace Warehouse.Tracking.Application;
 
 public interface ApplicationAssemblyMarker { }

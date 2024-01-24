@@ -1,7 +1,7 @@
-﻿using RetailSystem.Domain.Products;
-using RetailSystem.Infrastructure.Queries.Products;
+﻿using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Infrastructure.Queries.Products;
 
-namespace RetailSystem.Infrastructure.Extensions;
+namespace Warehouse.Tracking.Infrastructure.Extensions;
 public static partial class Extensions
 {
     public static ProductResponse ToProductResponse(this Product product)

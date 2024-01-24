@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RetailSystem.Domain.Exceptions;
+namespace Warehouse.Tracking.Domain.Exceptions;
 
 [Serializable]
 internal class InvalidProductQuantityException : Exception

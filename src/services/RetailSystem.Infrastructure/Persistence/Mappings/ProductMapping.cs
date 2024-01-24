@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RetailSystem.Domain.Products;
+using Warehouse.Tracking.Domain.Products;
 
-namespace RetailSystem.Infrastructure.Persistence.Mappings;
+namespace Warehouse.Tracking.Infrastructure.Persistence.Mappings;
 internal class ProductMapping : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
@@ -24,7 +24,7 @@ internal class ProductMapping : IEntityTypeConfiguration<Product>
 
         builder.Property(x => x.State)
             .HasConversion(
-                v => v.ToString(), 
+                v => v.ToString(),
                 v => (ProductState)Enum.Parse(typeof(ProductState), v));
 
         builder.HasMany<ProductMovement>("_productMovements")

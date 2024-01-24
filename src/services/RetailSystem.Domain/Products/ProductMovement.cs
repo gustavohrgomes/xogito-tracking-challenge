@@ -1,6 +1,6 @@
-﻿using RetailSystem.Domain.Common;
+﻿using Warehouse.Tracking.Domain.Common;
 
-namespace RetailSystem.Domain.Products;
+namespace Warehouse.Tracking.Domain.Products;
 
 /// <summary>
 /// Historic entity for tracking all products movements between Warehouses and Stores
@@ -9,11 +9,11 @@ public class ProductMovement : Entity
 {
     private ProductMovement(
         Guid id,
-        int productQuantity, 
-        Guid sourceId, 
-        string source, 
-        Guid destinationId, 
-        string destination, 
+        int productQuantity,
+        Guid sourceId,
+        string source,
+        Guid destinationId,
+        string destination,
         MovementState state,
         DateTime dispatchUtcDate)
     {
@@ -37,7 +37,7 @@ public class ProductMovement : Entity
     public string? Destination { get; set; }
     public string? Description { get; set; }
     public MovementState State { get; set; }
-    public DateTime? LastUpdatedUtcDate { get; set; } 
+    public DateTime? LastUpdatedUtcDate { get; set; }
     public DateTime DispatchUtcDate { get; set; }
     public DateTime? ReceivedUtcDate { get; set; }
     public DateTime? InventoryEntryUtcDate { get; set; }
@@ -51,10 +51,10 @@ public class ProductMovement : Entity
     {
         return new ProductMovement(
             Guid.NewGuid(),
-            productQuantity, 
-            sourceId, 
-            source, 
-            destinationId, 
+            productQuantity,
+            sourceId,
+            source,
+            destinationId,
             destination,
             MovementState.InTransit,
             DateTime.UtcNow);

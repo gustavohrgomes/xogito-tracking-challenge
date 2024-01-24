@@ -1,4 +1,4 @@
-﻿namespace RetailSystem.Application.Extensions;
+﻿namespace Warehouse.Tracking.Application.Extensions;
 
 public static partial class Extensions
 {

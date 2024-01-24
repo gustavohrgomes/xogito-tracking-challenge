@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RetailSystem.Application.Exeptions;
 using System.Net.Mime;
+using Warehouse.Tracking.Application.Exeptions;
 
-namespace RetailSystem.Infrastructure.ExpectionHandler;
+namespace Warehouse.Tracking.Infrastructure.ExpectionHandler;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             Detail = exception.Message
         };
 
-        
+
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);

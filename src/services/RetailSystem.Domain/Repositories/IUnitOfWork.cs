@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RetailSystem.Domain.Repositories;
+namespace Warehouse.Tracking.Domain.Repositories;
 public interface IUnitOfWork
 {
     Task CommitAsync(CancellationToken cancellationToken);

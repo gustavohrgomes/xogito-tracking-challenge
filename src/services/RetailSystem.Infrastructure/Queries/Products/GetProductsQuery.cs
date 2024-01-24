@@ -1,12 +1,12 @@
 ﻿using FluentResults;
 using MediatR;
-using Shared;
+using Warehouse.Tracking.Shared;
 
-namespace RetailSystem.Infrastructure.Queries.Products;
+namespace Warehouse.Tracking.Infrastructure.Queries.Products;
 
 public record GetProductsQuery(
-    int PageSize = 10, 
-    int PageIndex = 1, 
-    string? SortColumn = "name", 
-    string? SortOrder = "asc", 
+    int PageSize = 10,
+    int PageIndex = 1,
+    string? SortColumn = "name",
+    string? SortOrder = "asc",
     string? SearchTerm = null) : IRequest<Result<PaginatedResult<ProductResponse>>>;

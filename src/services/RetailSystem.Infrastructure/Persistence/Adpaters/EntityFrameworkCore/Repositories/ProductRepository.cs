@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetailSystem.Domain.Products;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Infrastructure.Persistence;
 
-namespace RetailSystem.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
+namespace Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
 
 public class ProductRepository : IProductRepository
 {

@@ -1,4 +1,4 @@
-﻿namespace RetailSystem.Application.Exeptions;
+﻿namespace Warehouse.Tracking.Application.Exeptions;
 [Serializable]
 public class ValidationFailedException : Exception
 {

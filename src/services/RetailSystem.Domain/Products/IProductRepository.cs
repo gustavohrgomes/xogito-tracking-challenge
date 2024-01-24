@@ -1,4 +1,4 @@
-﻿namespace RetailSystem.Domain.Products;
+﻿namespace Warehouse.Tracking.Domain.Products;
 public interface IProductRepository
 {
     Task<Product> FindByIdAsync(Guid productId, CancellationToken cancellationToken);

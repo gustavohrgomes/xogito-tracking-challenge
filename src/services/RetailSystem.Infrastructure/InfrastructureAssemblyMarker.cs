@@ -1,2 +1,2 @@
-﻿namespace RetailSystem.Infrastructure;
+﻿namespace Warehouse.Tracking.Infrastructure;
 public interface InfrastructureAssemblyMarker { }

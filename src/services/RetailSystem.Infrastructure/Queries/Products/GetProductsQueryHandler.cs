@@ -1,14 +1,14 @@
 ﻿using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RetailSystem.Domain.Products;
-using RetailSystem.Infrastructure.Extensions;
-using RetailSystem.Infrastructure.Persistence;
-using Shared;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Infrastructure.Extensions;
+using Warehouse.Tracking.Infrastructure.Persistence;
+using Warehouse.Tracking.Shared;
 
-namespace RetailSystem.Infrastructure.Queries.Products;
+namespace Warehouse.Tracking.Infrastructure.Queries.Products;
 
 public sealed class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Result<PaginatedResult<ProductResponse>>>
 {

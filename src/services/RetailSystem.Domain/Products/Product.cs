@@ -1,7 +1,8 @@
-﻿using RetailSystem.Domain.Common;
-using RetailSystem.Domain.Exceptions;
+﻿using RetailSystem.Domain.Exceptions;
+using RetailSystem.Domain.Products;
+using Warehouse.Tracking.Domain.Common;
 
-namespace RetailSystem.Domain.Products;
+namespace Warehouse.Tracking.Domain.Products;
 
 public class Product : Entity
 {

@@ -1,10 +1,10 @@
 ﻿using FluentResults;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using RetailSystem.Domain.Products;
-using RetailSystem.Domain.Repositories;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Domain.Repositories;
 
-namespace RetailSystem.Application.Products.ShipProduct;
+namespace Warehouse.Tracking.Application.Products.ShipProduct;
 
 public class ShipProductCommandHandler : IRequestHandler<ShipProductCommand, Result>
 {

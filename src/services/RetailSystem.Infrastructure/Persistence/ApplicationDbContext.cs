@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetailSystem.Domain.Common;
-using RetailSystem.Domain.Products;
+using Warehouse.Tracking.Domain.Common;
+using Warehouse.Tracking.Domain.Products;
 
-namespace RetailSystem.Infrastructure.Persistence;
+namespace Warehouse.Tracking.Infrastructure.Persistence;
 
 public sealed class ApplicationDbContext : DbContext
 {
@@ -14,7 +14,7 @@ public sealed class ApplicationDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
-   
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.Properties<string>().HaveMaxLength(255);

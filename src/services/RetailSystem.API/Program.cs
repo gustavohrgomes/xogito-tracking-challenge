@@ -4,13 +4,13 @@ using MediatR.NotificationPublishers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using RetailSystem.API.Middlewares;
-using RetailSystem.Application;
-using RetailSystem.Application.Behaviors;
-using RetailSystem.Infrastructure;
-using RetailSystem.Infrastructure.Persistence;
 using Serilog;
 using System.Reflection;
+using Warehouse.Tracking.API.Middlewares;
+using Warehouse.Tracking.Application;
+using Warehouse.Tracking.Application.Behaviors;
+using Warehouse.Tracking.Infrastructure;
+using Warehouse.Tracking.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

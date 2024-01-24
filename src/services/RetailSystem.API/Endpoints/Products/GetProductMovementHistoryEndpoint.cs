@@ -2,12 +2,12 @@
 using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RetailSystem.Domain.Products;
-using RetailSystem.Infrastructure.Queries.Products;
-using Shared;
 using Swashbuckle.AspNetCore.Annotations;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Infrastructure.Queries.Products;
+using Warehouse.Tracking.Shared;
 
-namespace RetailSystem.API.Endpoints.Products;
+namespace Warehouse.Tracking.API.Endpoints.Products;
 
 [Route("api/products")]
 public class GetProductMovementHistoryEndpoint : EndpointBaseAsync

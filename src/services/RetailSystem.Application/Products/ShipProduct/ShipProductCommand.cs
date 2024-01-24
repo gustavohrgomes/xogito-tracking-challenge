@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace RetailSystem.Application.Products.ShipProduct;
+namespace Warehouse.Tracking.Application.Products.ShipProduct;
 public record ShipProductCommand(
     Guid ProductId,
     int ProductQuantity,

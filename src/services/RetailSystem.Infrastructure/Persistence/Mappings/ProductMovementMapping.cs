@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RetailSystem.Domain.Products;
+using Warehouse.Tracking.Domain.Products;
 
-namespace RetailSystem.Infrastructure.Persistence.Mappings;
+namespace Warehouse.Tracking.Infrastructure.Persistence.Mappings;
 internal class ProductMovementMapping : IEntityTypeConfiguration<ProductMovement>
 {
     public void Configure(EntityTypeBuilder<ProductMovement> builder)
     {
         builder.ToTable("ProductsMovements");
-        
+
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)

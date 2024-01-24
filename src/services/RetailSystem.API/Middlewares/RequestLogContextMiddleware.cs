@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace RetailSystem.API.Middlewares;
+namespace Warehouse.Tracking.API.Middlewares;
 
 public sealed class RequestLogContextMiddleware
 {

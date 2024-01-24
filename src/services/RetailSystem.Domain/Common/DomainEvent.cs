@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RetailSystem.Domain.Common;
+namespace Warehouse.Tracking.Domain.Common;
 
 public abstract record DomainEvent : INotification
 { }

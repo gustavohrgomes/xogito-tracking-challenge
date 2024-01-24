@@ -1,11 +1,11 @@
 ﻿using Ardalis.ApiEndpoints;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RetailSystem.API.Contracts.Requests;
-using RetailSystem.Application.Products.ShipProduct;
 using Swashbuckle.AspNetCore.Annotations;
+using Warehouse.Tracking.API.Contracts.Requests;
+using Warehouse.Tracking.Application.Products.ShipProduct;
 
-namespace RetailSystem.API.Endpoints.Products;
+namespace Warehouse.Tracking.API.Endpoints.Products;
 
 [Route("api/products")]
 public class ShipProductEndpoint : EndpointBaseAsync
@@ -28,14 +28,14 @@ public class ShipProductEndpoint : EndpointBaseAsync
     public override async Task<IActionResult> HandleAsync(ShipProductRequest request, CancellationToken cancellationToken = default)
     {
         ShipProductCommand command = new(
-            request.ProductId, 
-            request.ProductQuantity, 
+            request.ProductId,
+            request.ProductQuantity,
             request.DestinationId,
             request.Destination);
 
         var result = await _sender.Send(command, cancellationToken);
 
-        return result.IsSuccess 
+        return result.IsSuccess
             ? Accepted()
             : BadRequest(result.Errors);
     }

@@ -1,9 +1,9 @@
 ﻿using FluentResults;
 using MediatR;
-using RetailSystem.Domain.Products;
-using RetailSystem.Domain.Repositories;
+using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Domain.Repositories;
 
-namespace RetailSystem.Application.Products.Register;
+namespace Warehouse.Tracking.Application.Products.Register;
 public sealed class RegisterProductCommandHandler : IRequestHandler<RegisterProductCommand, Result<Guid>>
 {
     private readonly IUnitOfWork _unitOfWork;

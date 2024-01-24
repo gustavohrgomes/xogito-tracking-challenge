@@ -1,9 +1,9 @@
 ﻿using FluentResults;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using RetailSystem.Application.Extensions;
+using Warehouse.Tracking.Application.Extensions;
 
-namespace RetailSystem.Application.Behaviors;
+namespace Warehouse.Tracking.Application.Behaviors;
 
 public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

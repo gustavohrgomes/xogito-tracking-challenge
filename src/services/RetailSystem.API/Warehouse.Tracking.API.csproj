@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RetailSystem.Application\RetailSystem.Application.csproj" />
-    <ProjectReference Include="..\RetailSystem.Infrastructure\RetailSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\RetailSystem.Application\Warehouse.Tracking.Application.csproj" />
+    <ProjectReference Include="..\RetailSystem.Infrastructure\Warehouse.Tracking.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
