@@ -23,26 +23,34 @@ public class GlobalExceptionHandler : IExceptionHandler
     {
         _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
 
-        httpContext.Response.ContentType = MediaTypeNames.Application.Json;
-
-        if (exception is ValidationFailedException validationFailedException)
+        return exception switch
         {
-            ProblemDetails validationProblemDetails = new()
+            ValidationFailedException validationFailedException => await HandleValidationFailedException(httpContext, validationFailedException, cancellationToken),
+            _ => await HandleUnknownException(httpContext, exception, cancellationToken)
+        };
+    }
+
+    private async ValueTask<bool> HandleValidationFailedException(HttpContext httpContext, ValidationFailedException validationFailedException, CancellationToken cancellationToken = default)
+    {
+        ProblemDetails problemDetails = new()
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Bad Request",
+            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
+            Extensions = new Dictionary<string, object?>()
             {
-                Status = StatusCodes.Status400BadRequest,
-                Title = "Bad Request",
-                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
-                Extensions = new Dictionary<string, object?>()
-                {
-                    {"errors", new[] { validationFailedException.Errors } }
-                }
-            };
+                {"errors", new[] { validationFailedException.Errors } }
+            }
+        };
 
-            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            await httpContext.Response.WriteAsJsonAsync(validationProblemDetails, cancellationToken);
-            return true;
-        }
+        httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+        return true;
+    }
 
+    private async ValueTask<bool> HandleUnknownException(HttpContext httpContext, Exception exception, CancellationToken cancellationToken = default)
+    {
         ProblemDetails problemDetails = new()
         {
             Status = StatusCodes.Status500InternalServerError,
@@ -51,11 +59,9 @@ public class GlobalExceptionHandler : IExceptionHandler
             Detail = exception.Message
         };
 
-
+        httpContext.Response.ContentType = MediaTypeNames.Application.Json;
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-
         return true;
     }
 }

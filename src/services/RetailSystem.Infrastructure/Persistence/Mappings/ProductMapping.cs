@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Domain.Warehouses;
 
 namespace Warehouse.Tracking.Infrastructure.Persistence.Mappings;
 internal class ProductMapping : IEntityTypeConfiguration<Product>
@@ -30,6 +31,10 @@ internal class ProductMapping : IEntityTypeConfiguration<Product>
         builder.HasMany<ProductMovement>("_productMovements")
             .WithOne()
             .HasForeignKey("ProductId");
+
+        builder.HasOne<ProductWarehouse>()
+            .WithMany()
+            .HasForeignKey(x => x.WarehouseId);
 
         builder.HasIndex(x => x.WarehouseId);
         builder.HasIndex(x => x.StoreId);

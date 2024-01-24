@@ -3,5 +3,4 @@
 public record ShipProductRequest(
     Guid ProductId,
     int ProductQuantity,
-    Guid DestinationId,
-    string Destination);
+    Guid DestinationId);

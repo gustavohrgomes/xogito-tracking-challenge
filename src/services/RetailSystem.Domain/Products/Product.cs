@@ -1,6 +1,5 @@
-﻿using RetailSystem.Domain.Exceptions;
-using RetailSystem.Domain.Products;
-using Warehouse.Tracking.Domain.Common;
+﻿using Warehouse.Tracking.Domain.Common;
+using Warehouse.Tracking.Domain.Exceptions;
 
 namespace Warehouse.Tracking.Domain.Products;
 

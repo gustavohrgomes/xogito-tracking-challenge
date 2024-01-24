@@ -19,7 +19,7 @@ public class RegisterProductEndpoint : EndpointBaseAsync
         _sender = sender;
     }
 
-    [HttpPost("register")]
+    [HttpPost("register", Name = "RegisterProduct")]
     [SwaggerOperation(
         Summary = "Add new product to warehouse",
         Description = "Add new product to warehouse",
@@ -29,8 +29,8 @@ public class RegisterProductEndpoint : EndpointBaseAsync
     {
         RegisterProductCommand command = new(request.Name, request.Quantity, request.WarehouseId, request.StoreId ?? null);
 
-        await _sender.Send(command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
 
-        return Created();
+        return CreatedAtRoute("RegisterProduct", result.Value);
     }
 }

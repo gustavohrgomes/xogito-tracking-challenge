@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using RetailSystem.Infrastructure.Persistence;
 using Warehouse.Tracking.Domain.Products;
 using Warehouse.Tracking.Domain.Repositories;
+using Warehouse.Tracking.Domain.Warehouses;
 using Warehouse.Tracking.Infrastructure.ExpectionHandler;
 using Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore;
 using Warehouse.Tracking.Infrastructure.Persistence.Adpaters.EntityFrameworkCore.Repositories;
@@ -21,6 +22,7 @@ public static class DependencyInjection
             .AddProblemDetails();
 
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
 
         return services;
     }

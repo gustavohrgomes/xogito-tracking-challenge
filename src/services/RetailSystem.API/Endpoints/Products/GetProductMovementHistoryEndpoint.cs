@@ -1,9 +1,8 @@
 ﻿using Ardalis.ApiEndpoints;
-using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.API.Contracts.Requests;
 using Warehouse.Tracking.Infrastructure.Queries.Products;
 using Warehouse.Tracking.Shared;
 
@@ -21,7 +20,7 @@ public class GetProductMovementHistoryEndpoint : EndpointBaseAsync
         _sender = sender;
     }
 
-    [HttpGet]
+    [HttpGet(Name = "GetProductsWithHistory")]
     [SwaggerOperation(
         Summary = "Get paginated list of products",
         Description = "Get paginated list of products",

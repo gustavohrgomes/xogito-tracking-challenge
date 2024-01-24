@@ -1,6 +1,4 @@
-﻿using RetailSystem.Domain.Products;
-
-namespace Warehouse.Tracking.Infrastructure.Queries.Products;
+﻿namespace Warehouse.Tracking.Infrastructure.Queries.Products;
 
 public record ProductResponse(
     Guid ProductId,

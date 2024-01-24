@@ -1,8 +1,6 @@
 using FluentValidation;
-using MediatR;
 using MediatR.NotificationPublishers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
@@ -48,6 +46,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    ApplicationDbContextSeeder.SeedAsync(context).Wait();
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

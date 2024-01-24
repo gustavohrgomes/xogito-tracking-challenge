@@ -30,8 +30,7 @@ public class ShipProductEndpoint : EndpointBaseAsync
         ShipProductCommand command = new(
             request.ProductId,
             request.ProductQuantity,
-            request.DestinationId,
-            request.Destination);
+            request.DestinationId);
 
         var result = await _sender.Send(command, cancellationToken);
 

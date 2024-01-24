@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Warehouse.Tracking.Domain.Common;
 using Warehouse.Tracking.Domain.Products;
+using Warehouse.Tracking.Domain.Warehouses;
 
 namespace Warehouse.Tracking.Infrastructure.Persistence;
 
@@ -14,6 +15,7 @@ public sealed class ApplicationDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<ProductWarehouse> Warehouses { get; set; }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {

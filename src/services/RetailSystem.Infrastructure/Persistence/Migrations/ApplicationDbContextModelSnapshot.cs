@@ -22,7 +22,7 @@ namespace RetailSystem.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RetailSystem.Domain.Products.Product", b =>
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Products.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -57,7 +57,7 @@ namespace RetailSystem.Infrastructure.Persistence.Migrations
                     b.ToTable("Products", (string)null);
                 });
 
-            modelBuilder.Entity("RetailSystem.Domain.Products.ProductMovement", b =>
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Products.ProductMovement", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -115,14 +115,43 @@ namespace RetailSystem.Infrastructure.Persistence.Migrations
                     b.ToTable("ProductsMovements", (string)null);
                 });
 
-            modelBuilder.Entity("RetailSystem.Domain.Products.ProductMovement", b =>
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Warehouses.ProductWarehouse", b =>
                 {
-                    b.HasOne("RetailSystem.Domain.Products.Product", null)
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses", (string)null);
+                });
+
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Products.Product", b =>
+                {
+                    b.HasOne("Warehouse.Tracking.Domain.Warehouses.ProductWarehouse", null)
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Products.ProductMovement", b =>
+                {
+                    b.HasOne("Warehouse.Tracking.Domain.Products.Product", null)
                         .WithMany("_productMovements")
                         .HasForeignKey("ProductId");
                 });
 
-            modelBuilder.Entity("RetailSystem.Domain.Products.Product", b =>
+            modelBuilder.Entity("Warehouse.Tracking.Domain.Products.Product", b =>
                 {
                     b.Navigation("_productMovements");
                 });
