@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 using Warehouse.Tracking.Domain.Warehouses;
 
 namespace Warehouse.Tracking.Infrastructure.Persistence;
@@ -8,7 +9,8 @@ public class ApplicationDbContextSeeder
     {
 		try
 		{
-			await SeedWarehouses(context);
+            await context.Database.MigrateAsync();
+            await SeedWarehouses(context);
 		}
 		catch
 		{

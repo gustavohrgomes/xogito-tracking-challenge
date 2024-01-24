@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RetailSystem.Domain\Warehouse.Tracking.Domain.csproj" />
+    <ProjectReference Include="..\Warehouse.Tracking.Domain\Warehouse.Tracking.Domain.csproj" />
+    <ProjectReference Include="..\Warehouse.Tracking.Shared\Warehouse.Tracking.Shared.csproj" />
   </ItemGroup>
 
 </Project>

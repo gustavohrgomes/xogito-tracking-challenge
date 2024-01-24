@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    
+  seq:
+    image: datalust/seq
+
+  warehouse.tracking.api:
+    image: ${DOCKER_REGISTRY-}warehousetrackingapi
+    build:
+      context: .
+      dockerfile: ./src/services/Warehouse.Tracking.API/Dockerfile
+
+networks:
+  warehouse:
+    driver: bridge

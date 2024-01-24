@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  sql-server:
+    container_name: sql-server
+    restart: "always"
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_SA_PASSWORD: "@User_password#123!"
+      ACCEPT_EULA: "Y" 
+    networks:
+      - warehouse
+       
+  seq:
+    container_name: warehouse-seq
+    ports:
+      - "5341:80"
+    environment:
+      ACCEPT_EULA: "Y"
+    networks:
+      - warehouse
+    
+  warehouse.tracking.api:
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: 8080
+      ConnectionString__RetailDB: "Server=sql-server;Database=RetailDB;MultipleActiveResultSets=True;TrustServerCertificate=true;User Id=sa;Password=@User_password#123!"
+    ports:
+      - "5000:8080"
+    networks:
+      - warehouse
